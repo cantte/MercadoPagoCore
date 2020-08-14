@@ -148,6 +148,25 @@ namespace MercadoPagoCore.Core
             return ProcessMethod<T>(clazz, null, methodName, mapParams, useCache, requestOptions);
         }
 
+        public static MercadoPagoBase ProcessMethod<T>(string methodName, string param, bool useCache) where T : MercadoPagoBase
+        {
+            return ProcessMethod<T>(methodName, param, useCache, null);
+        }
+
+        public static MercadoPagoBase ProcessMethod<T>(string methodName, string param, bool useCache, RequestOptions requestOptions) where T : MercadoPagoBase
+        {
+            Type classType = GetTypeFromStack();
+            AdmitIdempotencyKey(classType);
+            Dictionary<string, string> mapParams = new Dictionary<string, string>();
+            mapParams.Add("id", param);
+            return ProcessMethod<T>(classType, null, methodName, mapParams, useCache, requestOptions);
+        }
+
+        public MercadoPagoBase ProcessMethod<T>(string methodName, bool useCache) where T : MercadoPagoBase
+        {
+            return ProcessMethod<T>(methodName, useCache, null);
+        }
+
         public MercadoPagoBase ProcessMethod<T>(string methodName, bool useCache, RequestOptions requestOptions) where T : MercadoPagoBase
         {
             Dictionary<string, string> mapParams = null;
