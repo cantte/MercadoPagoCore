@@ -5,14 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
-    <Folder Include="DataStructures\" />
-    <Folder Include="Insight\" />
+    <Folder Include="DataStructures\AdvancedPayment\" />
+    <Folder Include="DataStructures\Customer\" />
+    <Folder Include="DataStructures\MerchantOrder\" />
+    <Folder Include="DataStructures\Preference\" />
+    <Folder Include="DataStructures\Preapproval\" />
+    <Folder Include="DataStructures\Plan\" />
+    <Folder Include="DataStructures\PaymentMethod\" />
+    <Folder Include="DataStructures\Payment\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ObjectDumper.NET" Version="2.5.20155.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
