@@ -12,7 +12,7 @@ namespace MercadoPagoCore.Core.Cache
 
         public CacheItemDictionary()
         {
-
+            CacheItems = new Dictionary<K, CacheItem<T>>();
         }
 
         protected Timer Timer { get; set; }

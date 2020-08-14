@@ -4,16 +4,14 @@ using MercadoPagoCore.Exceptions;
 
 namespace MercadoPagoCore.Core
 {
-    public class MercadoPagoCache
+    public static class MercadoPagoCache
     {
+        private static readonly CacheItemDictionary<string, object> cache = new CacheItemDictionary<string, object>();
         public static void AddToCache(string key, MercadoPagoAPIResponse response)
         {
             try
             {
-                CacheItemDictionary<string, object> cache = new CacheItemDictionary<string, object>
-                {
-                    { key, response }
-                };
+                cache.Add(key, response);
             }
             catch (Exception ex)
             {
@@ -25,7 +23,6 @@ namespace MercadoPagoCore.Core
         {
             try
             {
-                CacheItemDictionary<string, object> cache = new CacheItemDictionary<string, object>();
                 if (cache.TryGetValue(key, out object value))
                 {
                     return (MercadoPagoAPIResponse)value;
@@ -45,7 +42,6 @@ namespace MercadoPagoCore.Core
         {
             try
             {
-                CacheItemDictionary<string, object> cache = new CacheItemDictionary<string, object>();
                 cache.Remove(key);
             }
             catch (Exception ex)
