@@ -13,4 +13,8 @@
     <Folder Include="Resources\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MercadoPagoCore\MercadoPagoCore.csproj" />
+  </ItemGroup>
+
 </Project>
