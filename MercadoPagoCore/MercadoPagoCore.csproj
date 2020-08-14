@@ -5,14 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DataStructures\AdvancedPayment\" />
-    <Folder Include="DataStructures\Customer\" />
-    <Folder Include="DataStructures\MerchantOrder\" />
     <Folder Include="DataStructures\Preference\" />
-    <Folder Include="DataStructures\Preapproval\" />
-    <Folder Include="DataStructures\Plan\" />
-    <Folder Include="DataStructures\PaymentMethod\" />
-    <Folder Include="DataStructures\Payment\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 
