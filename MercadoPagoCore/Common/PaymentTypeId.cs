@@ -21,6 +21,8 @@ namespace MercadoPagoCore.Common
         /// <summary>Payment by prepaid card</summary>
         prepaid_card,
         /// <summary>Payment by digital currency</summary>
-        digital_currency
+        digital_currency,
+        /// <summary>Payment by digital wallet</summary>
+        digital_wallet
     }
 }
