@@ -8,8 +8,8 @@ namespace MercadoPagoCore.Core
     {
         public partial class Topic
         {
-            public static string MerchantOrder { get { return "MercadoPago.Resources.MerchantOrder"; } }
-            public static string Payment { get { return "MercadoPago.Resources.Payment"; } }
+            public static string MerchantOrder { get { return "MercadoPagoCore.Resources.MerchantOrder"; } }
+            public static string Payment { get { return "MercadoPagoCore.Resources.Payment"; } }
         }
 
         public static Type GetType(string resourceClassName)
