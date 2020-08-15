@@ -1,5 +1,7 @@
 using System;
+using System.Text.Json.Serialization;
 using MercadoPagoCore.Common;
+using Newtonsoft.Json.Converters;
 
 namespace MercadoPagoCore.DataStructures.Preference
 {
@@ -11,6 +13,7 @@ namespace MercadoPagoCore.DataStructures.Preference
         public string PictureUrl { get; set; }
         public string CategoryId { get; set; }
         public int? Quantity { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public CurrencyId CurrencyId { get; set; }
         public decimal UnitPrice { get; set; }
         public CategoryDescriptor CategoryDescriptor { get; set; }
