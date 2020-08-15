@@ -345,14 +345,17 @@ namespace MercadoPagoCore.Core
                                 }
                             }
                         }
-                        else
+                        else if (x.Value.HasValues)
                         {
                             new_jobject.Add(key, x.Value);
                         }
                     }
                     else if (x.Value.GetType() == typeof(JArray))
                     {
-                        new_jobject.Add(key, x.Value);
+                        if (x.Value.ToString() != jold[x.Name].ToString())
+                        {
+                            new_jobject.Add(key, x.Value);
+                        }
                     }
                     else if (x.Value.GetType() == typeof(JValue))
                     {
