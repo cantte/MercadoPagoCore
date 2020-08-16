@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +26,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\MercadoPagoConf_invalid_App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\MercadoPagoConf_valid_App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\launchSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
