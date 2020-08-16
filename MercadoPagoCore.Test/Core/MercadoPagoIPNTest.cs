@@ -91,11 +91,11 @@ namespace MercadoPagoCore.Test.Core
                 TransactionAmount = 50000f,
                 Token = CardHelper.SingleUseCardToken(Environment.GetEnvironmentVariable("PUBLIC_KEY"), "approved"),
                 Description = "Pago de seguro",
-                PaymentMethodId = "visa",
+                PaymentMethodId = "master",
                 Installments = 1,
                 Payer = new DataStructures.Payment.Payer
                 {
-                    Email = "mlovera@kinexo.com"
+                    Email = "test@test.com"
                 }
             };
 

@@ -36,7 +36,7 @@ namespace MercadoPagoCore.Test.Helpers
             };
 
             return "{ " +
-                "\"card_number\": \"4170068810108020\", " +
+                "\"card_number\": \"5031755734530604\", " +
                 "\"security_code\": \"123\", " +
                 "\"expiration_month\": \"11\", " +
                 "\"expiration_year\": \"2025\", " +
