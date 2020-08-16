@@ -52,13 +52,11 @@ namespace MercadoPagoCore.Net
 
             try
             {
-                using (HttpWebResponse response = (HttpWebResponse)request.Request.GetResponse())
-                {
-                    Stream dataStream = response.GetResponseStream();
-                    StreamReader reader = new StreamReader(dataStream, Encoding.UTF8);
-                    string StringResponse = reader.ReadToEnd();
-                    return JToken.Parse(StringResponse);
-                }
+                using HttpWebResponse response = (HttpWebResponse)request.Request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream, Encoding.UTF8);
+                string StringResponse = reader.ReadToEnd();
+                return JToken.Parse(StringResponse);
 
             }
             catch (WebException ex)
@@ -111,17 +109,14 @@ namespace MercadoPagoCore.Net
 
             if (new HttpMethod[] { HttpMethod.POST, HttpMethod.PUT }.Contains(httpMethod))
             {
-                using (Stream requestStream = request.Request.GetRequestStream())
-                {
-                    requestStream.Write(request.RequestPayload, 0, request.RequestPayload.Length);
-                }
+                using Stream requestStream = request.Request.GetRequestStream();
+                requestStream.Write(request.RequestPayload, 0, request.RequestPayload.Length);
             }
 
             try
             {
-                int retries;
                 DateTime startRequest = DateTime.Now;
-                HttpWebResponse response = ExecuteRequest(request.Request, requestOptions.Retries, out retries);
+                HttpWebResponse response = ExecuteRequest(request.Request, requestOptions.Retries, out int retries);
                 DateTime endRequest = DateTime.Now;
 
                 // Send metrics
@@ -229,7 +224,7 @@ namespace MercadoPagoCore.Net
 
             if (payload != null) // POST & PUT
             {
-                byte[] data = null;
+                byte[] data;
                 if (payloadType != PayloadType.JSON)
                 {
                     Dictionary<string, string> parametersDict = payload.ToObject<Dictionary<string, string>>();
@@ -254,7 +249,7 @@ namespace MercadoPagoCore.Net
                 request.RequestPayload = data;
             }
 
-            IWebProxy proxy = requestOptions.Proxy != null ? requestOptions.Proxy : (_proxy != null ? _proxy : MercadoPagoSDK.Proxy);
+            IWebProxy proxy = requestOptions.Proxy ?? (_proxy ?? MercadoPagoSDK.Proxy);
             request.Request.Proxy = proxy;
 
             return request;

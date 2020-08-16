@@ -392,9 +392,7 @@ namespace MercadoPagoCore.Core
             if (response.JsonObjectResponse != null &&
                     response.JsonObjectResponse is JObject)
             {
-                JObject jsonObject = null;
-
-                jsonObject = response.JsonObjectResponse;
+                JObject jsonObject = response.JsonObjectResponse;
                 T resourceObject = (T)MercadoPagoCoreUtils.GetResourceFromJson<T>(resource.GetType(), jsonObject);
                 resource = (T)FillResource(resourceObject, resource);
                 resource._lastKnownJson = MercadoPagoCoreUtils.GetJsonFromResource(resource);
@@ -562,11 +560,11 @@ namespace MercadoPagoCore.Core
             Dictionary<string, object> hashAnnotation = new Dictionary<string, object>();
             foreach (Attribute annotation in element.GetCustomAttributes(false))
             {
-                if (annotation is BaseEndpoint)
+                if (annotation is BaseEndpoint endpoint)
                 {
-                    if (string.IsNullOrEmpty(((BaseEndpoint)annotation).Path))
+                    if (string.IsNullOrEmpty(endpoint.Path))
                     {
-                        throw new MercadoPagoException(string.Format("Path not found for {0} method", ((BaseEndpoint)annotation).HttpMethod.ToString()));
+                        throw new MercadoPagoException(string.Format("Path not found for {0} method", endpoint.HttpMethod.ToString()));
                     }
                 }
                 else
@@ -691,9 +689,8 @@ namespace MercadoPagoCore.Core
 
         public static string GetUserToken(Type classType)
         {
-            UserToken userTokenAttribute = null;
             string userToken = "";
-            userTokenAttribute = ((UserToken)Attribute.GetCustomAttribute(classType, typeof(UserToken)));
+            UserToken userTokenAttribute = (UserToken)Attribute.GetCustomAttribute(classType, typeof(UserToken));
 
             if (userTokenAttribute != null)
             {
@@ -705,7 +702,7 @@ namespace MercadoPagoCore.Core
 
         public JObject GetJsonSource()
         {
-            return _lastApiResponse != null ? _lastApiResponse.JsonObjectResponse : null;
+            return _lastApiResponse?.JsonObjectResponse;
         }
 
         public static bool Validate(object o)

@@ -15,13 +15,13 @@ namespace MercadoPagoCore.Resources
         public string SecureThumbail { get; set; }
         public string Thumbail { get; set; }
         public PaymentMethodDeferredCapture DeferredCapture { get; set; }
-        public List<Settings> Settings { get; set; }
-        public List<string> AdditionalInfoNeeded { get; set; }
+        public List<Settings> Settings { get; set; } = new List<Settings>();
+        public List<string> AdditionalInfoNeeded { get; set; } = new List<string>();
         public string MinAllowedAmount { get; set; }
         public string MaxAllowedAmount { get; set; }
         public string AccreditationTime { get; set; }
-        public List<string> FinancialInstitutions { get; set; }
-        public List<string> ProcessingMode { get; set; }
+        public List<string> FinancialInstitutions { get; set; } = new List<string>();
+        public List<string> ProcessingMode { get; set; } = new List<string>();
 
         public static List<PaymentMethod> All()
         {

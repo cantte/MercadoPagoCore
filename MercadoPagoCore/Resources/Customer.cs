@@ -23,8 +23,8 @@ namespace MercadoPagoCore.Resources
         public DateTime? DateLastUpdate { get; set; }
         public JObject Metadata { get; set; }
         public string DefaultCard { get; set; }
-        public List<Card> Cards { get; set; }
-        public List<CustomerAddress> Addresses { get; set; }
+        public List<Card> Cards { get; set; } = new List<Card>();
+        public List<CustomerAddress> Addresses { get; set; } = new List<CustomerAddress>();
         public bool? LiveMode { get; set; }
 
         public static List<Customer> Search(Dictionary<string, string> filters)

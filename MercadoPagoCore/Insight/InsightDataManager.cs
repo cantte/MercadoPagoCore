@@ -58,16 +58,16 @@ namespace MercadoPagoCore.Insight
         {
             try
             {
-                var clientInfo = new ClientInfo
+                ClientInfo clientInfo = new ClientInfo
                 {
                     Name = MercadoPagoSDK.ClientName,
                     Version = MercadoPagoSDK.Version,
                 };
 
-                var productId = GetHeaderValue(request, HEADER_X_PRODUCT_ID);
-                var businessFlow = GetHeaderValue(request, HEADER_X_INSIGHTS_BUSINESS_FLOW);
+                string productId = GetHeaderValue(request, HEADER_X_PRODUCT_ID);
+                string businessFlow = GetHeaderValue(request, HEADER_X_INSIGHTS_BUSINESS_FLOW);
                 BusinessFlowInfo businessFlowInfo = null;
-                if (!String.IsNullOrEmpty(productId) || !String.IsNullOrEmpty(businessFlow))
+                if (!string.IsNullOrEmpty(productId) || !string.IsNullOrEmpty(businessFlow))
                 {
                     businessFlowInfo = new BusinessFlowInfo
                     {
@@ -77,8 +77,8 @@ namespace MercadoPagoCore.Insight
                 }
 
                 DTO.EventInfo eventInfo = null;
-                var eventName = GetHeaderValue(request, HEADER_X_INSIGHTS_EVENT_NAME);
-                if (!String.IsNullOrEmpty(eventName))
+                string eventName = GetHeaderValue(request, HEADER_X_INSIGHTS_EVENT_NAME);
+                if (!string.IsNullOrEmpty(eventName))
                 {
                     eventInfo = new DTO.EventInfo
                     {
@@ -86,47 +86,47 @@ namespace MercadoPagoCore.Insight
                     };
                 }
 
-                var protocolHttp = new ProtocolHttp
+                ProtocolHttp protocolHttp = new ProtocolHttp
                 {
                     RequestUrl = request.Address.ToString(),
                     RequestMethod = request.Method,
-                    ResponseCode = (Int32)response.StatusCode,
+                    ResponseCode = (int)response.StatusCode,
                     FirstByteTime = startRequest.Subtract(start).Milliseconds,
                     LastByteTime = endRequest.Subtract(startRequest).Milliseconds,
                 };
 
                 for (int i = 0; i < request.Headers.Count; i++)
                 {
-                    var header = request.Headers.GetKey(i);
+                    string header = request.Headers.GetKey(i);
                     if (header.Equals(HEADER_X_INSIGHTS_DATA_ID, StringComparison.InvariantCultureIgnoreCase)
                         || header.Equals("User-Agent", StringComparison.InvariantCultureIgnoreCase))
                     {
                         continue;
                     }
 
-                    protocolHttp.AddRequestHeader(header, String.Join(";", request.Headers.GetValues(i)));
+                    protocolHttp.AddRequestHeader(header, string.Join(";", request.Headers.GetValues(i)));
                 }
 
                 for (int i = 0; i < response.Headers.Count; i++)
                 {
-                    var header = response.Headers.GetKey(i);
-                    protocolHttp.AddResponseHeader(header, String.Join(";", response.Headers.GetValues(i)));
+                    string header = response.Headers.GetKey(i);
+                    protocolHttp.AddResponseHeader(header, string.Join(";", response.Headers.GetValues(i)));
                 }
 
-                var protocolInfo = new ProtocolInfo
+                ProtocolInfo protocolInfo = new ProtocolInfo
                 {
                     Name = "http",
                     ProtocolHttp = protocolHttp,
                     RetryCount = retries,
                 };
 
-                var tcpInfo = new TcpInfo
+                TcpInfo tcpInfo = new TcpInfo
                 {
                     SourceAddress = GetHostAddress(),
                     TargetAddress = GetRemoteAddress(request.ServicePoint.Address),
                 };
 
-                var connectionInfo = new ConnectionInfo
+                ConnectionInfo connectionInfo = new ConnectionInfo
                 {
                     ProtocolInfo = protocolInfo,
                     TcpInfo = tcpInfo,
@@ -134,17 +134,17 @@ namespace MercadoPagoCore.Insight
                     IsDataComplete = endRequest.Subtract(startRequest).Milliseconds > 0,
                 };
 
-                if (!String.IsNullOrEmpty(request.UserAgent))
+                if (!string.IsNullOrEmpty(request.UserAgent))
                 {
                     connectionInfo.UserAgent = request.UserAgent;
                 }
 
-                var deviceInfo = new DeviceInfo
+                DeviceInfo deviceInfo = new DeviceInfo
                 {
                     OsName = Environment.OSVersion.VersionString,
                 };
 
-                var structuredMetricRequest = new StructuredMetricRequest
+                StructuredMetricRequest structuredMetricRequest = new StructuredMetricRequest
                 {
                     EventInfo = eventInfo,
                     ClientInfo = clientInfo,
@@ -162,7 +162,7 @@ namespace MercadoPagoCore.Insight
             }
         }
 
-        public Boolean IsInsightMetricsEnabled(String url)
+        public bool IsInsightMetricsEnabled(string url)
         {
             if (DateTime.Now.Ticks > _sendDataDeadline)
             {
@@ -176,33 +176,33 @@ namespace MercadoPagoCore.Insight
         {
             try
             {
-                var clientInfo = new ClientInfo
+                ClientInfo clientInfo = new ClientInfo
                 {
                     Name = MercadoPagoSDK.ClientName,
                     Version = MercadoPagoSDK.Version,
                 };
 
-                var trafficLightRequest = new TrafficLightRequest
+                TrafficLightRequest trafficLightRequest = new TrafficLightRequest
                 {
                     ClientInfo = clientInfo,
                 };
 
-                var httpResponse = PostData(INSIGHTS_API_ENDPOINT_TRAFFIC_LIGHT, trafficLightRequest);
-                using (var responseStream = new StreamReader(httpResponse.GetResponseStream(), Encoding.UTF8))
+                HttpWebResponse httpResponse = PostData(INSIGHTS_API_ENDPOINT_TRAFFIC_LIGHT, trafficLightRequest);
+                using (StreamReader responseStream = new StreamReader(httpResponse.GetResponseStream(), Encoding.UTF8))
                 {
-                    this.TrafficLight = JsonConvert.DeserializeObject<TrafficLightResponse>(responseStream.ReadToEnd());
+                    TrafficLight = JsonConvert.DeserializeObject<TrafficLightResponse>(responseStream.ReadToEnd());
                 }
 
-                if (this.TrafficLight == null)
+                if (TrafficLight == null)
                 {
-                    this.TrafficLight = DefaultTrafficLightResponse();
+                    TrafficLight = DefaultTrafficLightResponse();
                 }
 
-                _sendDataDeadline = DateTime.Now.Ticks + Math.Abs(this.TrafficLight.SendTtl * 10000000);
+                _sendDataDeadline = DateTime.Now.Ticks + Math.Abs(TrafficLight.SendTtl * 10000000);
             }
             catch (Exception)
             {
-                this.TrafficLight = DefaultTrafficLightResponse();
+                TrafficLight = DefaultTrafficLightResponse();
             }
         }
 
@@ -215,14 +215,14 @@ namespace MercadoPagoCore.Insight
             };
         }
 
-        private HttpWebResponse PostData(String path, Object data)
+        private HttpWebResponse PostData(string path, object data)
         {
-            var json = JsonConvert.SerializeObject(data);
-            var payload = Encoding.UTF8.GetBytes(json);
+            string json = JsonConvert.SerializeObject(data);
+            byte[] payload = Encoding.UTF8.GetBytes(json);
 
-            var url = INSIGHT_DEFAULT_BASE_URL + path;
+            string url = INSIGHT_DEFAULT_BASE_URL + path;
 
-            var httpRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            HttpWebRequest httpRequest = (HttpWebRequest)HttpWebRequest.Create(url);
             httpRequest.Headers.Add(HEADER_X_INSIGHTS_METRIC_LAB_SCOPE, MercadoPagoSDK.MetricsScope);
             httpRequest.Method = "POST";
             httpRequest.Accept = "application/json";
@@ -231,7 +231,7 @@ namespace MercadoPagoCore.Insight
             httpRequest.ContentLength = payload.Length;
             httpRequest.Timeout = MercadoPagoSDK.RequestsTimeout;
 
-            using (var requestStream = httpRequest.GetRequestStream())
+            using (Stream requestStream = httpRequest.GetRequestStream())
             {
                 requestStream.Write(payload, 0, payload.Length);
             }
@@ -239,28 +239,28 @@ namespace MercadoPagoCore.Insight
             return (HttpWebResponse)httpRequest.GetResponse();
         }
 
-        private String GetHeaderValue(HttpWebRequest httpRequest, String header)
+        private string GetHeaderValue(HttpWebRequest httpRequest, string header)
         {
-            return httpRequest.Headers[header] != null ? httpRequest.Headers[header] : "";
+            return httpRequest.Headers[header] ?? "";
         }
 
-        private String GetHostAddress()
+        private string GetHostAddress()
         {
             return GetAddress(() => Dns.GetHostName());
         }
 
-        private String GetRemoteAddress(Uri uri)
+        private string GetRemoteAddress(Uri uri)
         {
 
             return GetAddress(() => uri.Host);
         }
 
-        private String GetAddress(Func<String> getHostname)
+        private string GetAddress(Func<string> getHostname)
         {
             try
             {
-                var host = Dns.GetHostEntry(getHostname());
-                foreach (var ip in host.AddressList)
+                IPHostEntry host = Dns.GetHostEntry(getHostname());
+                foreach (IPAddress ip in host.AddressList)
                 {
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
                     {
@@ -285,7 +285,7 @@ namespace MercadoPagoCore.Insight
 
             try
             {
-                var certificate = new X509Certificate2(request.ServicePoint.Certificate);
+                X509Certificate2 certificate = new X509Certificate2(request.ServicePoint.Certificate);
                 return new CertificateInfo
                 {
                     CertificateType = GetSslProtocolType(sslProtocol),
@@ -299,7 +299,7 @@ namespace MercadoPagoCore.Insight
             }
         }
 
-        private String GetSslProtocolType(SslProtocols? sslProtocol)
+        private string GetSslProtocolType(SslProtocols? sslProtocol)
         {
             switch (sslProtocol)
             {
@@ -316,7 +316,7 @@ namespace MercadoPagoCore.Insight
             }
         }
 
-        private String GetSslProtocolVersion(SslProtocols? sslProtocol)
+        private string GetSslProtocolVersion(SslProtocols? sslProtocol)
         {
             switch (sslProtocol)
             {

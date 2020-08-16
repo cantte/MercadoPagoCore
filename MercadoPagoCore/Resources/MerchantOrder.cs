@@ -19,13 +19,13 @@ namespace MercadoPagoCore.Resources
         public Payer Payer { get; set; }
         public Collector Collector { get; set; }
         public long? SponsorId { get; set; }
-        public List<MerchantOrderPayment> Payments { get; }
+        public List<MerchantOrderPayment> Payments { get; } = new List<MerchantOrderPayment>();
         public float? PaidAmount { get; }
         public float? RefundedAmount { get; }
         public float? ShippingCost { get; }
         public bool? Cancelled { get; set; }
-        public List<Item> Items { get; set; }
-        public List<Shipment> Shipments { get; set; }
+        public List<Item> Items { get; set; } = new List<Item>();
+        public List<Shipment> Shipments { get; set; } = new List<Shipment>();
         [StringLength(500)]
         public string NotificationUrl { get; set; }
         [StringLength(600)]
