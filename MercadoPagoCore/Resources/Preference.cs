@@ -44,9 +44,9 @@ namespace MercadoPagoCore.Resources
         public long? SponsorId { get; set; }
         public List<ProcessingMode> ProcessingModes { get; set; } = new List<ProcessingMode>();
         public bool? BinaryMode { get; set; }
-        public List<Tax> Taxes { get; set; } = new List<Tax>();
+        public List<Tax> Taxes { get; set; }
         public JObject Metadata { get; set; }
-        public List<Track> Tracks { get; set; } = new List<Track>();
+        public List<Track> Tracks { get; set; }
 
         public static Preference FindById(string id)
         {
