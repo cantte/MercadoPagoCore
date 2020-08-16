@@ -13,7 +13,7 @@ namespace MercadoPagoCore.Resources
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Phone? MyProperty { get; set; }
+        public Phone? Phone { get; set; }
         public Identification? Identification { get; set; }
         public string DefaultAddress { get; set; }
         public Address? Address { get; set; }
