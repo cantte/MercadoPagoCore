@@ -73,7 +73,7 @@ namespace MercadoPagoCore.Test.Helpers
                 Token = CardHelper.SingleUseCardToken(publicKey, status),
                 Description = "Pago de prueba",
                 PaymentMethodId = "visa",
-                ExternalReference = "",
+                ExternalReference = "INTEGRATION-TEST-PAYMENT",
                 Installments = 1,
                 Payer = new Payer
                 {
