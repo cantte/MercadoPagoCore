@@ -10,7 +10,7 @@ namespace MercadoPagoCore.Test
     {
         public static void LoadLaunchSettings()
         {
-            using StreamReader file = File.OpenText("Properties\\launchSettings.json");
+            using StreamReader file = File.OpenText("Properties/launchSettings.json");
             JsonTextReader reader = new JsonTextReader(file);
             JObject jObject = JObject.Load(reader);
 

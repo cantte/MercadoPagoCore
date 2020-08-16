@@ -40,13 +40,13 @@ namespace MercadoPagoCore.Resources
         public string Marketplace { get; set; }
         public float? Marketplace_fee { get; set; }
         public DifferentialPricing? Differential_pricing { get; set; }
-        public List<Item> Items { get; set; }
+        public List<Item> Items { get; set; } = new List<Item>();
         public long? SponsorId { get; set; }
-        public List<ProcessingMode> ProcessingModes { get; set; }
+        public List<ProcessingMode> ProcessingModes { get; set; } = new List<ProcessingMode>();
         public bool? BinaryMode { get; set; }
-        public List<Tax> Taxes { get; set; }
+        public List<Tax> Taxes { get; set; } = new List<Tax>();
         public JObject Metadata { get; set; }
-        public List<Track> Tracks { get; set; }
+        public List<Track> Tracks { get; set; } = new List<Track>();
 
         public static Preference FindById(string id)
         {
