@@ -18,6 +18,8 @@ namespace MercadoPagoCore.Test.Resources
         {
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
+            LaunchSettingsFixture.LoadLaunchSettings();
+
             MercadoPagoSDK.CleanConfiguration();
             MercadoPagoSDK.SetBaseUrl("https://api.mercadopago.com");
             MercadoPagoSDK.AccessToken = Environment.GetEnvironmentVariable("ACCESS_TOKEN");
