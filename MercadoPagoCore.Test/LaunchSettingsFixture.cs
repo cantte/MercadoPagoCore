@@ -24,7 +24,8 @@ namespace MercadoPagoCore.Test
                 .ToList();
 
             foreach (JProperty variable in variables)
-                Environment.SetEnvironmentVariable(variable.Name, variable.Value.ToString());
+                if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable(variable.Name)))
+                    Environment.SetEnvironmentVariable(variable.Name, variable.Value.ToString());
         }
     }
 }
