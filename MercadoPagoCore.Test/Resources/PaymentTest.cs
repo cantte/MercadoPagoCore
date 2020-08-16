@@ -22,7 +22,7 @@ namespace MercadoPagoCore.Test.Resources
             LaunchSettingsFixture.LoadLaunchSettings();
 
             MercadoPagoSDK.CleanConfiguration();
-            MercadoPagoSDK.SetBaseUrl("");
+            MercadoPagoSDK.SetBaseUrl("https://api.mercadopago.com");
             MercadoPagoSDK.AccessToken = Environment.GetEnvironmentVariable("ACCESS_TOKEN");
         }
 
