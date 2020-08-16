@@ -37,7 +37,7 @@ namespace MercadoPagoCore.Resources
         public int? CampaignId { get; set; }
         public string CouponCode { get; set; }
         public TransactionDetail? TransactionDetails { get; set; }
-        public List<FeeDetail> FeeDetails { get; set; } = new List<FeeDetail>();
+        public List<FeeDetail> FeeDetails { get; set; }
         public int? DifferentialPricingId { get; set; }
         public float? ApplicationFee { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
@@ -56,13 +56,13 @@ namespace MercadoPagoCore.Resources
         public int? Installments { get; set; }
         public string NotificationUrl { get; set; }
         public string CallbackUrl { get; set; }
-        public List<Refund> Refunds { get; set; } = new List<Refund>();
+        public List<Refund> Refunds { get; set; }
         public AdditionalInfo? AdditionalInfo { get; set; }
         public string ProcessingMode { get; set; }
         public string MerchantAccountId { get; set; }
         public DateTime? DateOfExpiration { get; set; }
         public long? SponsorId { get; set; }
-        public List<Taxes> Taxes { get; set; } = new List<Taxes>();
+        public List<Taxes> Taxes { get; set; }
         public string PaymentMethodOptionId { get; set; }
         public MerchantServices MerchantServices { get; set; }
         public string IntegratorId { get; set; }
