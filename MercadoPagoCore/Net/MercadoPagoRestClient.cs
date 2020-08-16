@@ -36,9 +36,9 @@ namespace MercadoPagoCore.Net
 
         public JToken ExecuteGenericRequest(HttpMethod httpMethod, string path, PayloadType payloadType, JObject payload)
         {
-            if (MercadoPagoSDK.AccessToken != null)
+            if (MercadoPagoSDK.OAuthAccessToken != null)
             {
-                path = MercadoPagoSDK.BaseUrl + path + "?access_token=" + MercadoPagoSDK.AccessToken;
+                path = MercadoPagoSDK.BaseUrl + path + "?access_token=" + MercadoPagoSDK.OAuthAccessToken;
             }
 
             RequestBase request = CreateRequest(httpMethod, path, payloadType, payload, null, 0, 0);
@@ -80,7 +80,7 @@ namespace MercadoPagoCore.Net
             int requestTimeout,
             int retries)
         {
-            var requestOptions = CreateRequestOptions(colHeaders, requestTimeout, retries);
+            RequestOptions requestOptions = CreateRequestOptions(colHeaders, requestTimeout, retries);
             return ExecuteRequest(httpMethod, path, payloadType, payload, requestOptions);
         }
 
@@ -119,9 +119,9 @@ namespace MercadoPagoCore.Net
 
             try
             {
-                Int32 retries;
+                int retries;
                 DateTime startRequest = DateTime.Now;
-                var response = ExecuteRequest(request.Request, requestOptions.Retries, out retries);
+                HttpWebResponse response = ExecuteRequest(request.Request, requestOptions.Retries, out retries);
                 DateTime endRequest = DateTime.Now;
 
                 // Send metrics
@@ -143,7 +143,7 @@ namespace MercadoPagoCore.Net
             int connectionTimeout,
             int retries)
         {
-            var requestOptions = CreateRequestOptions(colHeaders, connectionTimeout, retries);
+            RequestOptions requestOptions = CreateRequestOptions(colHeaders, connectionTimeout, retries);
             return CreateRequest(httpMethod, path, payloadType, payload, requestOptions);
         }
 
@@ -207,7 +207,7 @@ namespace MercadoPagoCore.Net
 
             if (requestOptions.CustomHeaders != null)
             {
-                foreach (var header in requestOptions.CustomHeaders)
+                foreach (KeyValuePair<string, string> header in requestOptions.CustomHeaders)
                 {
                     if (request.Request.Headers[header.Key] == null)
                     {
@@ -218,7 +218,7 @@ namespace MercadoPagoCore.Net
 
             if (requestOptions.TrackHeaders != null)
             {
-                foreach (var trackHeader in requestOptions.TrackHeaders)
+                foreach (KeyValuePair<string, string> trackHeader in requestOptions.TrackHeaders)
                 {
                     if (request.Request.Headers[trackHeader.Key] == null && trackHeader.Value != null)
                     {
@@ -232,11 +232,11 @@ namespace MercadoPagoCore.Net
                 byte[] data = null;
                 if (payloadType != PayloadType.JSON)
                 {
-                    var parametersDict = payload.ToObject<Dictionary<string, string>>();
+                    Dictionary<string, string> parametersDict = payload.ToObject<Dictionary<string, string>>();
                     StringBuilder parametersString = new StringBuilder();
                     parametersString.Append(string.Format("{0}={1}", parametersDict.First().Key, parametersDict.First().Value));
                     parametersDict.Remove(parametersDict.First().Key);
-                    foreach (var value in parametersDict)
+                    foreach (KeyValuePair<string, string> value in parametersDict)
                     {
                         parametersString.Append(string.Format("&{0}={1}", value.Key, value.Value.ToString()));
                     }
@@ -262,10 +262,10 @@ namespace MercadoPagoCore.Net
 
         private RequestOptions CreateRequestOptions(WebHeaderCollection colHeaders, int connectionTimeout, int retries)
         {
-            IDictionary<String, String> headers = new Dictionary<String, String>();
+            IDictionary<string, string> headers = new Dictionary<string, string>();
             if (colHeaders != null)
             {
-                foreach (var header in colHeaders)
+                foreach (object header in colHeaders)
                 {
                     headers.Add(header.ToString(), colHeaders[header.ToString()]);
                 }
@@ -279,7 +279,7 @@ namespace MercadoPagoCore.Net
             };
         }
 
-        private HttpWebResponse ExecuteRequest(HttpWebRequest request, Int32 maxRetries, out Int32 retries)
+        private HttpWebResponse ExecuteRequest(HttpWebRequest request, int maxRetries, out int retries)
         {
             retries = 0;
             while (true)
@@ -305,8 +305,8 @@ namespace MercadoPagoCore.Net
         {
             try
             {
-                var sslProtocol = GetSslProtocol(response.GetResponseStream());
-                var metricsSender = new MetricsSender(request, response, sslProtocol, retries, start, startRequest, endRequest);
+                SslProtocols? sslProtocol = GetSslProtocol(response.GetResponseStream());
+                MetricsSender metricsSender = new MetricsSender(request, response, sslProtocol, retries, start, startRequest, endRequest);
                 metricsSender.Send();
             }
             catch
@@ -324,33 +324,33 @@ namespace MercadoPagoCore.Net
             {
                 if (typeof(SslStream).IsAssignableFrom(stream.GetType()))
                 {
-                    var ssl = stream as SslStream;
+                    SslStream ssl = stream as SslStream;
                     return ssl.SslProtocol;
                 }
 
-                var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
 
                 if (stream.GetType().FullName == "System.Net.ConnectStream")
                 {
-                    var connection = stream.GetType().GetProperty("Connection", flags).GetValue(stream, null);
-                    var netStream = connection.GetType().GetProperty("NetworkStream", flags).GetValue(connection, null) as Stream;
+                    object connection = stream.GetType().GetProperty("Connection", flags).GetValue(stream, null);
+                    Stream netStream = connection.GetType().GetProperty("NetworkStream", flags).GetValue(connection, null) as Stream;
                     return GetSslProtocol(netStream);
                 }
 
                 if (stream.GetType().FullName == "System.Net.WebRequestStream" || stream.GetType().FullName == "System.Net.WebResponseStream")
                 {
-                    var connection = stream.GetType().GetProperty("Connection", flags).GetValue(stream, null);
-                    var netStream = connection.GetType().GetField("networkStream", flags).GetValue(connection) as Stream;
+                    object connection = stream.GetType().GetProperty("Connection", flags).GetValue(stream, null);
+                    Stream netStream = connection.GetType().GetField("networkStream", flags).GetValue(connection) as Stream;
                     return GetSslProtocol(netStream);
                 }
 
                 if (stream.GetType().FullName == "System.Net.TlsStream")
                 {
-                    var ssl = stream.GetType().GetField("m_Worker", flags).GetValue(stream);
-                    if (ssl.GetType().GetProperty("IsAuthenticated", flags).GetValue(ssl, null) as Boolean? != true)
+                    object ssl = stream.GetType().GetField("m_Worker", flags).GetValue(stream);
+                    if (ssl.GetType().GetProperty("IsAuthenticated", flags).GetValue(ssl, null) as bool? != true)
                     {
-                        var processAuthMethod = stream.GetType().GetMethod("ProcessAuthentication", flags);
-                        processAuthMethod.Invoke(stream, new Object[] { null });
+                        MethodInfo processAuthMethod = stream.GetType().GetMethod("ProcessAuthentication", flags);
+                        processAuthMethod.Invoke(stream, new object[] { null });
                     }
 
                     return ssl.GetType().GetProperty("SslProtocol", flags).GetValue(ssl, null) as SslProtocols?;

@@ -72,8 +72,6 @@ namespace MercadoPagoCore
         {
             get
             {
-                if (string.IsNullOrEmpty(_accessToken))
-                    _accessToken = MercadoPagoCredentials.GetAccessToken();
                 return _accessToken;
             }
             set
@@ -81,6 +79,19 @@ namespace MercadoPagoCore
                 if (!string.IsNullOrEmpty(_accessToken))
                     throw new Exceptions.ConfigurationException("AccessToken setting can not be changed.");
                 _accessToken = value;
+            }
+        }
+
+        /// <summary>
+        /// Same AccessToken, but from MercadoPagoCredentials
+        /// </summary>
+        public static string OAuthAccessToken
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_accessToken))
+                    _accessToken = MercadoPagoCredentials.GetAccessToken();
+                return _accessToken;
             }
         }
 

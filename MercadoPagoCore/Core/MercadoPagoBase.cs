@@ -659,7 +659,7 @@ namespace MercadoPagoCore.Core
             }
             else
             {
-                accessToken = MercadoPagoSDK.AccessToken;
+                accessToken = MercadoPagoSDK.OAuthAccessToken;
             }
 
             if (!string.IsNullOrEmpty(accessToken) && !path.Equals("/oauth/token", StringComparison.InvariantCultureIgnoreCase))
