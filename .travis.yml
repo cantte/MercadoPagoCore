@@ -5,11 +5,7 @@ mono: none
 
 dotnet: 3.1.101
 
-install:
-  - nuget restore MercadoPagoCore.sln
-  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
-
 script:
   - dotnet restore
   - dotnet build --configuration Release --no-restore
-  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./MercadoPagoCore.Test/bin/Release/MercadoPagoCore.Test.dll
+  - dotnet test --no-restore --verbosity normal
