@@ -1,0 +1,11 @@
+language: csharp
+solution: MercadoPagoCore.sln
+
+mono: none
+
+dotnet: 3.1.101
+
+script:
+  - dotnet restore
+  - dotnet build --configuration Release --no-restore
+  - dotnet test --no-restore --verbosity normal
