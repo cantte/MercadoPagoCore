@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using MercadoPagoCore.Core.Annotations;
+using MercadoPagoCore.Core.Endpoints;
 using MercadoPagoCore.DataStructures.Generic;
 using MercadoPagoCore.Exceptions;
 using MercadoPagoCore.Net;
@@ -18,14 +19,14 @@ namespace MercadoPagoCore.Core
 {
     public abstract class MercadoPagoBase
     {
-        public static bool WITHOUT_CACHE = false;
-        public static bool WITH_CACHE = true;
-        public static List<string> ALLOWED_BULK_METHODS = new List<string>() { "All", "Search", "CreateAll" };
+        public static readonly bool WITHOUT_CACHE = false;
+        public static readonly bool WITH_CACHE = true;
+        public static readonly List<string> ALLOWED_BULK_METHODS = new List<string>() { "All", "Search", "CreateAll" };
 
-        public static string DataTypeError = "Error on property #PROPERTY. The value you are trying to assign has not the correct type. ";
-        public static string RangeError = "Error on property #PROPERTY. The value you are trying to assign is not in the specified range. ";
-        public static string RequiredError = "Error on property #PROPERTY. There is no value for this required property. ";
-        public static string RegularExpressionError = "Error on property #PROPERTY. The specified value is not valid. RegExp: #REGEXPR . ";
+        public static readonly string DataTypeError = "Error on property #PROPERTY. The value you are trying to assign has not the correct type. ";
+        public static readonly string RangeError = "Error on property #PROPERTY. The value you are trying to assign is not in the specified range. ";
+        public static readonly string RequiredError = "Error on property #PROPERTY. There is no value for this required property. ";
+        public static readonly string RegularExpressionError = "Error on property #PROPERTY. The specified value is not valid. RegExp: #REGEXPR . ";
 
         public static string IdempotencyKey { get; set; }
 
@@ -40,6 +41,7 @@ namespace MercadoPagoCore.Core
             private set { _errors = value; }
         }
 #nullable disable
+
         protected string _marketplaceAccessToken;
         public string MarketplaceAccessToken
         {

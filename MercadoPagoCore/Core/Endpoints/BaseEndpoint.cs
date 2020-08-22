@@ -1,7 +1,7 @@
 using System;
 using MercadoPagoCore.Core.Annotations;
 
-namespace MercadoPagoCore.Core
+namespace MercadoPagoCore.Core.Endpoints
 {
     public class BaseEndpoint : Attribute
     {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MercadoPagoCore.Core;
+using MercadoPagoCore.Core.Endpoints;
 using MercadoPagoCore.DataStructures.Preapproval;
 using MercadoPagoCore.Net;
 

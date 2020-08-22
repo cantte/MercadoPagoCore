@@ -1,5 +1,6 @@
 using System;
 using MercadoPagoCore.Core;
+using MercadoPagoCore.Core.Endpoints;
 using MercadoPagoCore.DataStructures.Plan;
 using MercadoPagoCore.Net;
 

@@ -1,4 +1,4 @@
-namespace MercadoPagoCore.Core
+namespace MercadoPagoCore.Core.Endpoints
 {
     public class DELETEEndpoint : BaseEndpoint
     {

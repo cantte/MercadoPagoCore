@@ -23,24 +23,18 @@ namespace MercadoPagoCore
         private static string _clientId;
         private static string _accessToken;
         private static string _appId;
-        private static string _baseUrl = DEFAULT_BASE_URL;
         private static int _requestsTimeout = DEFAULT_REQUESTS_TIMEOUT;
         private static int _requestsRetries = DEFAULT_REQUESTS_RETRIES;
         private static IWebProxy _proxy;
-        private static string _userToken;
-        private static string _refreshToken;
-        private static readonly string _version;
         private static string _corporationId;
         private static string _integratorId;
         private static string _platformId;
-        private static string _trackingId;
-        private static string _metricsScope = DEFAULT_METRICS_SCOPE;
 
         static MercadoPagoSDK()
         {
-            _version = new AssemblyName(typeof(MercadoPagoSDK).Assembly.FullName).Version.ToString(3);
+            Version = new AssemblyName(typeof(MercadoPagoSDK).Assembly.FullName).Version.ToString(3);
 
-            _trackingId = $"platform:{Environment.Version.Major}|{Environment.Version},type:MercadoPagoSDK{_version},so;";
+            TrackingId = $"platform:{Environment.Version.Major}|{Environment.Version},type:MercadoPagoSDK{Version},so;";
         }
 
         public static string ClientSecret
@@ -106,7 +100,7 @@ namespace MercadoPagoCore
             }
         }
 
-        public static string BaseUrl => DEFAULT_BASE_URL;
+        public static string BaseUrl { get; private set; } = DEFAULT_BASE_URL;
 
         public static int RequestsTimeout
         {
@@ -122,15 +116,11 @@ namespace MercadoPagoCore
 
         public static IWebProxy Proxy { get; set; }
         public static string RefreshToken { get; set; }
-        public static string Version => _version;
+        public static string Version { get; private set; }
         public static string ProductId => PRODUCT_ID;
         public static string ClientName => CLIENT_NAME;
-        public static string TrackingId => _trackingId;
-        public static string MetricsScope
-        {
-            get => _metricsScope;
-            set => _metricsScope = value;
-        }
+        public static string TrackingId { get; private set; }
+        public static string MetricsScope { get; set; } = DEFAULT_METRICS_SCOPE;
 
         /// <summary>
         /// Dictionary based configuration. Valid configuration keys:
@@ -216,7 +206,7 @@ namespace MercadoPagoCore
             _clientId = null;
             _accessToken = null;
             _appId = null;
-            _baseUrl = DEFAULT_BASE_URL;
+            BaseUrl = DEFAULT_BASE_URL;
             _requestsTimeout = DEFAULT_REQUESTS_TIMEOUT;
             _requestsRetries = DEFAULT_REQUESTS_RETRIES;
             _proxy = null;
@@ -228,7 +218,7 @@ namespace MercadoPagoCore
         /// </summary>
         public static void SetBaseUrl(string baseUrl)
         {
-            _baseUrl = baseUrl;
+            BaseUrl = baseUrl;
         }
 
         /// <summary>

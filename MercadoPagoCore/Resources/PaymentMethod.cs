@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using MercadoPagoCore.Common;
 using MercadoPagoCore.Core;
+using MercadoPagoCore.Core.Endpoints;
 using MercadoPagoCore.DataStructures.PaymentMethod;
 using MercadoPagoCore.Net;
 

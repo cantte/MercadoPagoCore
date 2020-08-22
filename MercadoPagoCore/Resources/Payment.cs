@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using MercadoPagoCore.Common;
 using MercadoPagoCore.Core;
+using MercadoPagoCore.Core.Endpoints;
 using MercadoPagoCore.DataStructures.Payment;
 using MercadoPagoCore.Net;
 using Newtonsoft.Json.Converters;

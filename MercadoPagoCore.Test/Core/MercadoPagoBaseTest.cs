@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using MercadoPagoCore.Core;
 using MercadoPagoCore.Core.Annotations;
+using MercadoPagoCore.Core.Endpoints;
 using MercadoPagoCore.Exceptions;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -231,7 +232,7 @@ namespace MercadoPagoCore.Test.Core
             {
                 try
                 {
-                    var result = All();
+                    DummyClass result = All();
                 }
                 catch (MercadoPagoException exception)
                 {
@@ -323,7 +324,7 @@ namespace MercadoPagoCore.Test.Core
             {
                 try
                 {
-                    var result = All();
+                    DummyClass result = All();
                 }
                 catch (MercadoPagoException exception)
                 {
