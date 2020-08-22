@@ -30,15 +30,15 @@ namespace MercadoPagoCore.Test.Resources
             Preapproval preapproval = new Preapproval
             {
                 PayerEmail = "test@test.com",
-                BackUrl = "",
+                BackUrl = "https://localhost.com",
                 ExternalReference = "1",
                 Reason = "TESTING 1",
                 AutoRecurring = new AutoRecurring
                 {
                     CurrencyId = CurrencyId.ARS,
-                    Frecuency = 1,
+                    Frequency = 1,
                     FrequencyType = FrequencyType.months,
-                    TransactionAmount = 50000
+                    TransactionAmount = 10
                 }
             };
 

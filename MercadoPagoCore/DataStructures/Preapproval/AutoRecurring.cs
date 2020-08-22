@@ -10,7 +10,7 @@ namespace MercadoPagoCore.DataStructures.Preapproval
     {
         [JsonConverter(typeof(StringEnumConverter))]
         public FrequencyType FrequencyType { get; set; }
-        public int Frecuency { get; set; }
+        public int Frequency { get; set; }
         public float TransactionAmount { get; set; }
         [StringLength(3)]
         public CurrencyId CurrencyId { get; set; }
