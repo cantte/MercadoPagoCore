@@ -143,9 +143,11 @@ namespace MercadoPagoCore.Core
 
         public static MercadoPagoBase ProcessMethod<T>(Type clazz, string methodName, string param1, string param2, bool useCache, RequestOptions requestOptions) where T : MercadoPagoBase
         {
-            Dictionary<string, string> mapParams = new Dictionary<string, string>();
-            mapParams.Add("param0", param1);
-            mapParams.Add("param1", param2);
+            Dictionary<string, string> mapParams = new Dictionary<string, string>
+            {
+                { "param0", param1 },
+                { "param1", param2 }
+            };
 
             return ProcessMethod<T>(clazz, null, methodName, mapParams, useCache, requestOptions);
         }
@@ -159,8 +161,10 @@ namespace MercadoPagoCore.Core
         {
             Type classType = GetTypeFromStack();
             AdmitIdempotencyKey(classType);
-            Dictionary<string, string> mapParams = new Dictionary<string, string>();
-            mapParams.Add("id", param);
+            Dictionary<string, string> mapParams = new Dictionary<string, string>
+            {
+                { "id", param }
+            };
             return ProcessMethod<T>(classType, null, methodName, mapParams, useCache, requestOptions);
         }
 
@@ -172,7 +176,7 @@ namespace MercadoPagoCore.Core
         public MercadoPagoBase ProcessMethod<T>(string methodName, bool useCache, RequestOptions requestOptions) where T : MercadoPagoBase
         {
             Dictionary<string, string> mapParams = null;
-            T resource = ProcessMethod<T>(GetType(), (T)this, methodName, mapParams, useCache, requestOptions);
+            _ = ProcessMethod<T>(GetType(), (T)this, methodName, mapParams, useCache, requestOptions);
             return (T)this;
         }
 
@@ -312,7 +316,7 @@ namespace MercadoPagoCore.Core
             {
                 JObject actualJSON = MercadoPagoCoreUtils.GetJsonFromResource(resource);
                 JObject oldJSON = resource.GetLastKnownJson();
-                return getDiffFromLastChange(actualJSON, oldJSON);
+                return GetDiffFromLastChange(actualJSON, oldJSON);
             }
             else if (httpMethod.ToString() == "POST")
             {
@@ -324,7 +328,7 @@ namespace MercadoPagoCore.Core
             }
         }
 
-        public static JObject getDiffFromLastChange(JToken jactual, JToken jold)
+        public static JObject GetDiffFromLastChange(JToken jactual, JToken jold)
         {
             JObject new_jobject = new JObject();
 
@@ -338,7 +342,7 @@ namespace MercadoPagoCore.Core
                     {
                         if (jold != null)
                         {
-                            JObject new_value = getDiffFromLastChange(x.Value, ((JObject)jold[x.Name]));
+                            JObject new_value = GetDiffFromLastChange(x.Value, ((JObject)jold[x.Name]));
                             if (new_value != null)
                             {
                                 if (new_value.Properties().Count() > 0)

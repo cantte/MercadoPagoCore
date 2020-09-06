@@ -7,6 +7,7 @@ namespace MercadoPagoCore.Core
     public static class MercadoPagoCache
     {
         private static readonly CacheItemDictionary<string, object> cache = new CacheItemDictionary<string, object>();
+
         public static void AddToCache(string key, MercadoPagoAPIResponse response)
         {
             try

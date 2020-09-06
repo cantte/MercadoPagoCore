@@ -76,27 +76,7 @@ namespace MercadoPagoCore.Core
                 DateTimeFormat = "yyyy-MM-dd'T'HH:mm:ss.fffK"
             });
 
-            T resource = (T)jObj.ToObject<T>(serializer);
-
-            resource.DumpLog();
-
-            return resource;
-        }
-
-        public static MercadoPagoBase GetResourceFromJson<T>(string json) where T : MercadoPagoBase
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            //{ 
-            //    NullValueHandling = NullValueHandling.Ignore,
-            //    ContractResolver = new CustomDeserializationContractResolver()
-            //};
-
-            //serializer.Converters.Add(new IsoDateTimeConverter()
-            //{
-            //    DateTimeFormat = "yyyy-MM-dd'T'HH:mm:ss.fffK"
-            //});
-
-            T resource = JsonConvert.DeserializeObject<T>(json);//(T)jObj.ToObject<T>(serializer);
+            T resource = jObj.ToObject<T>(serializer);
 
             resource.DumpLog();
 
@@ -113,7 +93,7 @@ namespace MercadoPagoCore.Core
                 ContractResolver = new CustomDeserializationContractResolver()
             };
 
-            BadParamsError badParams = (BadParamsError)jObj.ToObject<BadParamsError>(serializer);
+            BadParamsError badParams = jObj.ToObject<BadParamsError>(serializer);
             return badParams;
         }
 
@@ -121,19 +101,12 @@ namespace MercadoPagoCore.Core
 
         public static JArray GetArrayFromJsonElement<T>(JObject jsonElement) where T : MercadoPagoBase
         {
-            JArray jsonArray = null;
-            if (jsonElement is JObject)
-            {
-                jsonArray = JArray.Parse(jsonElement["results"].ToString());
-            }
-            return jsonArray;
+            return GetJArrayFromStringResponse<T>(jsonElement["results"].ToString());
         }
 
         public static JArray GetJArrayFromStringResponse<T>(string stringResponse) where T : MercadoPagoBase
         {
-            JArray jsonArray = null;
-            jsonArray = JArray.Parse(stringResponse);
-            return jsonArray;
+            return JArray.Parse(stringResponse);
         }
     }
 }

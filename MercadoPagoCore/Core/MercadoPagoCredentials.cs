@@ -22,6 +22,7 @@ namespace MercadoPagoCore.Core
                 { "client_id", MercadoPagoSDK.ClientId },
                 { "client_secret", MercadoPagoSDK.ClientSecret }
             };
+
             string access_token;
             MercadoPagoAPIResponse response = new MercadoPagoRestClient().ExecuteRequest(
                     HttpMethod.POST,
@@ -55,7 +56,6 @@ namespace MercadoPagoCore.Core
             {
                 throw new MercadoPagoException("Can not retrieve the \"access_token\"");
             }
-
 
             return access_token;
         }
