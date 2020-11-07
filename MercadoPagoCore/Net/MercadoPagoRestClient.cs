@@ -36,12 +36,16 @@ namespace MercadoPagoCore.Net
 
         public JToken ExecuteGenericRequest(HttpMethod httpMethod, string path, PayloadType payloadType, JObject payload)
         {
+            WebHeaderCollection headers = new WebHeaderCollection();
             if (MercadoPagoSDK.OAuthAccessToken != null)
             {
-                path = MercadoPagoSDK.BaseUrl + path + "?access_token=" + MercadoPagoSDK.OAuthAccessToken;
+                if (!path.Contains("/oauth/token"))
+                    headers.Add("Authorization", $"Bearer {MercadoPagoSDK.OAuthAccessToken}");
+
+                path = MercadoPagoSDK.BaseUrl + path;
             }
 
-            RequestBase request = CreateRequest(httpMethod, path, payloadType, payload, null, 0, 0);
+            RequestBase request = CreateRequest(httpMethod, path, payloadType, payload, headers, 0, 0);
 
             if (new HttpMethod[] { HttpMethod.POST, HttpMethod.PUT }.Contains(httpMethod))
             {
@@ -196,6 +200,9 @@ namespace MercadoPagoCore.Net
             {
                 request.Request.Timeout = requestOptions.Timeout;
             }
+
+            if (!path.Contains("/oauth/token"))
+                request.Request.Headers.Add("Authorization", $"Bearer {(!string.IsNullOrEmpty(requestOptions.AccessToken) ? requestOptions.AccessToken : MercadoPagoSDK.OAuthAccessToken)}");
 
             request.Request.Headers.Add("x-product-id", MercadoPagoSDK.ProductId);
             request.Request.Headers.Add("x-tracking-id", MercadoPagoSDK.TrackingId);

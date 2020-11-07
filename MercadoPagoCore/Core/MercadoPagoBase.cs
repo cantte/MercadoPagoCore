@@ -276,6 +276,9 @@ namespace MercadoPagoCore.Core
                 };
             }
 
+            if (string.IsNullOrEmpty(requestOptions.AccessToken) && !string.IsNullOrEmpty(resource.MarketplaceAccessToken))
+                requestOptions.AccessToken = resource.MarketplaceAccessToken;
+
             string path = ParsePath(restData["path"].ToString(), parameters, resource, requestOptions);
             MercadoPagoAPIResponse response = CallAPI(httpMethod, path, payloadType, payload, useCache, requestOptions);
 
@@ -647,33 +650,10 @@ namespace MercadoPagoCore.Core
             result.Insert(0, MercadoPagoSDK.BaseUrl);
             result.Append(path);
 
-            if (requestOptions == null)
-            {
-                requestOptions = new RequestOptions();
-            }
-
-            string accessToken;
-            if (!string.IsNullOrEmpty(requestOptions.AccessToken))
-            {
-                accessToken = requestOptions.AccessToken;
-            }
-            else if (resource != null && !string.IsNullOrEmpty(resource.MarketplaceAccessToken))
-            {
-                accessToken = resource.MarketplaceAccessToken;
-            }
-            else
-            {
-                accessToken = MercadoPagoSDK.OAuthAccessToken;
-            }
-
-            if (!string.IsNullOrEmpty(accessToken) && !path.Equals("/oauth/token", StringComparison.InvariantCultureIgnoreCase))
-            {
-                result.Append(string.Format("{0}{1}", "?access_token=", accessToken));
-            }
-
             bool search = !path.Contains(':') && mapParams != null && mapParams.Any();
             if (search) //search url format, no :id type. Params after access_token
             {
+                result.Append("?");
                 foreach (KeyValuePair<string, string> elem in mapParams)
                 {
                     if (!string.IsNullOrEmpty(elem.Value))
