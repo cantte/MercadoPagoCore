@@ -25,19 +25,19 @@ First time using Mercado Pago? Create your [Mercado Pago account](https://www.me
 
 **Using Package Manager**
 
-`PM> Install-Package MercadoPagoCore -Version 1.0.4`
+`PM> Install-Package MercadoPagoCore -Version 1.0.5`
 
 **Using .Net CLI**
 
-`> dotnet add package MercadoPagoCore --version 1.0.4`
+`> dotnet add package MercadoPagoCore --version 1.0.5`
 
 **Using Paket CLI**
 
-`> paket add MercadoPagoCore --version 1.0.4`
+`> paket add MercadoPagoCore --version 1.0.5`
 
 **Using Package Reference**
 
-`<PackageReference Include="MercadoPagoCore" Version="1.0.4" />`
+`<PackageReference Include="MercadoPagoCore" Version="1.0.5" />`
 
 
 Copy the access_token in the [credentials](https://www.mercadopago.com/mlb/account/credentials) section of the page and replace YOUR_ACCESS_TOKEN with it.
