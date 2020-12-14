@@ -16,7 +16,7 @@
     <PackageReference Include="NUnit.Extension.NUnitProjectLoader" Version="3.6.0" />
     <PackageReference Include="NUnit.Extension.NUnitV2Driver" Version="3.8.0" />
     <PackageReference Include="NUnit.Extension.NUnitV2ResultWriter" Version="3.6.0" />
-    <PackageReference Include="NUnit.Extension.TeamCityEventListener" Version="1.0.7" />
+    <PackageReference Include="NUnit.Extension.TeamCityEventListener" Version="1.0.8" />
     <PackageReference Include="NUnit.Extension.VSProjectLoader" Version="3.8.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
   </ItemGroup>
