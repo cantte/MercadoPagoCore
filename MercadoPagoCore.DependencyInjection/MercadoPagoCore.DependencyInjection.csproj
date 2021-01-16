@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>MercadoPagoCore</RootNamespace>
+    <AssemblyName>MercadoPagoCore.DependencyInjection</AssemblyName>
+    <PackageId>MercadoPagoCore.Extensions.Microsoft.DependencyInjection</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MercadoPagoCore\MercadoPagoCore.csproj" />
+  </ItemGroup>
+
+</Project>

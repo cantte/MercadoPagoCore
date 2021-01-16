@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoPagoCore", "MercadoPagoCore\MercadoPagoCore.csproj", "{A616CB39-9545-4F5D-9437-7584093139B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MercadoPagoCore", "MercadoPagoCore\MercadoPagoCore.csproj", "{A616CB39-9545-4F5D-9437-7584093139B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoPagoCore.Test", "MercadoPagoCore.Test\MercadoPagoCore.Test.csproj", "{3FFF2C83-8E3A-457C-9460-3AEA0F5A5B9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MercadoPagoCore.Test", "MercadoPagoCore.Test\MercadoPagoCore.Test.csproj", "{3FFF2C83-8E3A-457C-9460-3AEA0F5A5B9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoPagoCore.Examples", "MercadoPagoCore.Examples\MercadoPagoCore.Examples.csproj", "{6429E8B6-C40D-4064-BC3F-EC55EAB0B34B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D036477-8C00-4942-8F94-E925121E2AD4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoPagoCore.DependencyInjection", "MercadoPagoCore.DependencyInjection\MercadoPagoCore.DependencyInjection.csproj", "{6A4AD2BE-83EC-4DDB-9BB5-56C1034FBBA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +28,10 @@ Global
 		{3FFF2C83-8E3A-457C-9460-3AEA0F5A5B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FFF2C83-8E3A-457C-9460-3AEA0F5A5B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FFF2C83-8E3A-457C-9460-3AEA0F5A5B9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6429E8B6-C40D-4064-BC3F-EC55EAB0B34B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6429E8B6-C40D-4064-BC3F-EC55EAB0B34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6429E8B6-C40D-4064-BC3F-EC55EAB0B34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6429E8B6-C40D-4064-BC3F-EC55EAB0B34B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4AD2BE-83EC-4DDB-9BB5-56C1034FBBA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4AD2BE-83EC-4DDB-9BB5-56C1034FBBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4AD2BE-83EC-4DDB-9BB5-56C1034FBBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4AD2BE-83EC-4DDB-9BB5-56C1034FBBA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
