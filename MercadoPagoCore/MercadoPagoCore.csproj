@@ -11,7 +11,7 @@
     <Copyright>2020</Copyright>
     <RepositoryType>public</RepositoryType>
     <PackageTags>mercadopago,netcore,.netcore</PackageTags>
-    <Version>2.0.0</Version>
+    <Version>5.0.0</Version>
     <PackageIcon>MercadoPagoCore.png</PackageIcon>
   </PropertyGroup>
 

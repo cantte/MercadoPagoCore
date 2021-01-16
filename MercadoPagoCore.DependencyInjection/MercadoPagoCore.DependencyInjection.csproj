@@ -5,10 +5,30 @@
     <RootNamespace>MercadoPagoCore</RootNamespace>
     <AssemblyName>MercadoPagoCore.DependencyInjection</AssemblyName>
     <PackageId>MercadoPagoCore.Extensions.Microsoft.DependencyInjection</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>The inofficial MercadoPagoCore SDK for ASP.NET core apps</Description>
+    <Copyright>2020</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/cantte/MercadoPagoCore</PackageProjectUrl>
+    <PackageIcon>MercadoPagoCore.png</PackageIcon>
+    <RepositoryUrl>https://github.com/cantte/MercadoPagoCore</RepositoryUrl>
+    <RepositoryType>public</RepositoryType>
+    <PackageTags>mercadopago,netcore,.netcore</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MercadoPagoCore\MercadoPagoCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\MercadoPagoCore.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

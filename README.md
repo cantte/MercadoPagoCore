@@ -15,29 +15,29 @@ This library provides developers with a simple set of bindings to help you integ
 
 ## 💡 Requirements
 
-.NETCoreApp >= 3.1
+.net >= 5.0
 
 ## 📲 Installation 
 
-### Using our nuget package
+### Using our NuGet package
 
 First time using Mercado Pago? Create your [Mercado Pago account](https://www.mercadopago.com), if you don’t have one already.
 
 **Using Package Manager**
 
-`PM> Install-Package MercadoPagoCore -Version 1.0.5`
+`PM> Install-Package MercadoPagoCore -Version 5.0.0`
 
 **Using .Net CLI**
 
-`> dotnet add package MercadoPagoCore --version 1.0.5`
+`> dotnet add package MercadoPagoCore --version 5.0.0`
 
 **Using Paket CLI**
 
-`> paket add MercadoPagoCore --version 1.0.5`
+`> paket add MercadoPagoCore --version 5.0.0`
 
 **Using Package Reference**
 
-`<PackageReference Include="MercadoPagoCore" Version="1.0.5" />`
+`<PackageReference Include="MercadoPagoCore" Version="5.0.0" />`
 
 
 Copy the access_token in the [credentials](https://www.mercadopago.com/mlb/account/credentials) section of the page and replace YOUR_ACCESS_TOKEN with it.
@@ -49,27 +49,31 @@ That's it! MercadoPagoCore SDK has been successfully installed.
 Simple usage looks like:
 
 ```csharp
-using MercadoPagoCore;
-using MercadoPagoCore.DataStructures.Payment;
-using MercadoPagoCore.Resources;
+using System;
+using System.Threading.Tasks;
+using MercadoPago.Client.Payment;
+using MercadoPago.Config;
+using MercadoPago.Resource.Payment;
 
-MercadoPagoSDK.AccessToken = "YOUR_ACCESS_TOKEN";
+MercadoPagoConfig.AccessToken = "YOUR_ACCESS_TOKEN";
 
-Payment payment = new Payment
+var request = new PaymentCreateRequest
 {
-    TransactionAmount = 50000f,
-    Token = "YOUR_CARD_TOKEN"
-    Description = "Ergonomic Silk Shirt",
-    PaymentMethodId = "YOUR_PAYMENT_METHOD_ID", 
+    TransactionAmount = 10,
+    Token = "CARD_TOKEN",
+    Description = "Payment description",
     Installments = 1,
-    Payer = new Payer {
-        Email = "test.payer@email.com"
+    PaymentMethodId = "visa",
+    Payer = new PaymentPayerRequest
+    {
+        Email = "test.payer@email.com",
     }
 };
 
-payment.Save();
+var client = new PaymentClient();
+Payment payment = await client.CreateAsync(request);
 
-Console.WriteLine(payment.Status)
+Console.WriteLine($"Payment ID: {payment.Id}");
 ```
 
 ## 📚 Documentation 
