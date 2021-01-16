@@ -7,7 +7,7 @@
     <RepositoryUrl>https://github.com/cantte/MercadoPagoCore</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Description>The inofficial MercadoPago SDK for .NetCoreApps</Description>
+    <Description>The inofficial MercadoPagoCore SDK for .NetCoreApps</Description>
     <Copyright>2020</Copyright>
     <RepositoryType>public</RepositoryType>
     <PackageTags>mercadopago,netcore,.netcore</PackageTags>
@@ -32,6 +32,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Serialization\" />
   </ItemGroup>
 
 </Project>

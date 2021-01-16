@@ -5,8 +5,8 @@
       "environmentVariables": {
         "CLIENT_SECRET": "N8h64ko1SbY2ucyZVmOMyBJN1B82ajZp",
         "CLIENT_ID": "6295877106812064",
-        "ACCESS_TOKEN": "ACCESS_TOKEN",
-        "PUBLIC_KEY": "PUBLIC_KEY",
+        "ACCESS_TOKEN": "TEST-2823460721006149-081117-77b75c2b5a55f9b50c63417d40210f45-251462384",
+        "PUBLIC_KEY": "TEST-9070fba9-ae52-4795-94d2-8793f6e50c37",
         "AppId": ""
       }
     }
