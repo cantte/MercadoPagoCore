@@ -1,3 +1,6 @@
+### This repository is archived since the official Mercadopago sdk has been updated and continues to be updated.
+### Only dependency reversal functionality for ASP.NET core will be preserved in the following repository [Click here](https://github.com/cantte/MercadoPago.DependencyInjection).
+
 # MercadoPagoCore - Repository
 This library provides developers with a simple set of bindings to help you integrate Mercado Pago API to a website and start receiving payments.
 
